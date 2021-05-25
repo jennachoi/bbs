@@ -7,10 +7,12 @@
 th {
 	width: 150px;
 	background-color: lightgray;
+	padding: 5px;
 }
 
 td {
 	width: 300px;
+	padding: 5px;
 }
 
 span {

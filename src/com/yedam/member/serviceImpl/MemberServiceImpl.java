@@ -9,12 +9,38 @@ import com.yedam.common.DAO;
 import com.yedam.member.service.MemberService;
 import com.yedam.member.vo.MemberVO;
 
-public class MemberServiceImpl extends DAO implements MemberService{
-	
+public class MemberServiceImpl extends DAO implements MemberService {
+
 	PreparedStatement psmt;
 	ResultSet rs;
-	
-	//ID 중복체크 메소드 - 중복:true/사용가능:false
+
+	// LOGIN시 ID, PWD 체크해주는 메소드
+	public MemberVO loginCheck(MemberVO vo) {
+		String SQL = "select * from member where id = ? and passwd = ?";
+		MemberVO rvo = null;
+		// boolean exist = false;
+		try {
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getPwd());
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+//				exist = true;
+				rvo = new MemberVO();
+				rvo.setId(rs.getString("id"));
+				rvo.setPwd(rs.getString("passwd"));
+				rvo.setName(rs.getString("name"));
+				rvo.setAddr(rs.getString("address"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return rvo;
+	}
+
+	// ID 중복체크 메소드 - 중복:true/사용가능:false
 	public boolean idCheck(String id) {
 		boolean exist = false;
 		String SQL = "select id from member where id=?";
@@ -32,8 +58,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 		}
 		return exist;
 	}
-	
-	
+
 	@Override
 	public List<MemberVO> selectMemberList() {
 		// TODO Auto-generated method stub
@@ -46,6 +71,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 		return null;
 	}
 
+	// 회원가입 
 	@Override
 	public int insertMember(MemberVO vo) {
 		String sql = "insert into member(id, name, passwd, address) values(?,?,?,?)";
@@ -76,8 +102,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
 	private void close() {
 		try {
 			if (rs != null) {
@@ -93,5 +118,5 @@ public class MemberServiceImpl extends DAO implements MemberService{
 			e.printStackTrace();
 		}
 	}
-	
+
 }
