@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yedam.bulletin.vo.BulletinVO;
 import com.yedam.common.DAO;
 import com.yedam.notice.service.NoticeService;
 import com.yedam.notice.vo.NoticeVO;
@@ -74,6 +75,30 @@ public class NoticeServiceImpl extends DAO implements NoticeService {
 		return list;
 	}
 
+	// 최신글 조회
+	@Override
+	public List<NoticeVO> selectNewNoticeList() {
+		List<NoticeVO> list = new ArrayList<>();
+		String SQL = "select id, title, reg_date from ( SELECT * from notice order by id desc) where rownum <= 5";
+		try {
+			psmt = conn.prepareStatement(SQL);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				NoticeVO vo = new NoticeVO();
+				vo.setId(rs.getInt("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setRegDate(rs.getDate("reg_date"));
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 	@Override
 	public NoticeVO selectNotice(NoticeVO vo) {
 		String SQL = "select * from notice where id=?";

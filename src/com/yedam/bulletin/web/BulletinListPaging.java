@@ -5,10 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.bulletin.serviceImpl.BulletinServiceImpl;
+import com.yedam.bulletin.vo.BulletinVO;
 import com.yedam.common.DBCommand;
 import com.yedam.common.Paging;
-import com.yedam.notice.serviceImpl.NoticeServiceImpl;
-import com.yedam.notice.vo.NoticeVO;
 
 public class BulletinListPaging implements DBCommand {
 
@@ -18,12 +18,12 @@ public class BulletinListPaging implements DBCommand {
 		if (page == null) 
 			page = "1";
 		int pageCnt = Integer.parseInt(page);
-		NoticeServiceImpl service = new NoticeServiceImpl();
-		List<NoticeVO> total = service.selectNoticeList(); // 전체카운트
+		BulletinServiceImpl service = new BulletinServiceImpl();
+		List<BulletinVO> total = service.selectBulletinList(); // 전체카운트
 		
 		// 전체 건수를 위해 실행
-		service = new NoticeServiceImpl();
-		List<NoticeVO> list = service.noticeListPaging(pageCnt);
+		service = new BulletinServiceImpl();
+		List<BulletinVO> list = service.bulletinListPaging(pageCnt);
 		
 		//현재 페이지 리스트를 위해 실행
         Paging paging = new Paging();
@@ -31,7 +31,7 @@ public class BulletinListPaging implements DBCommand {
         paging.setPageSize(10);		//페이지 크기
         paging.setTotalCount(total.size());
 		
-        request.setAttribute("noticeList", list);
+        request.setAttribute("BulletinList", list);
         request.setAttribute("paging", paging);
         return "bulletin/bulletinListPaging.tiles";
 	}

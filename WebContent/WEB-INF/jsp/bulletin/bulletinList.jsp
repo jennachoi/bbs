@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>bulletinListPaging.jsp</title>
+<title>bulletinList.jsp</title>
 <style>
 th {
 	background-color: lightgray;
@@ -35,20 +35,16 @@ tr:hover td{background-color: #ddd;}
 
 </style>
 <script>
-	//게시글 Id로 조회
-	function formSubmit(bulletinId) {
-		frm.id.value = bulletinId;
+	function formSubmit(id) {
+		frm.id.value = id;
 		frm.submit();
-	}
-	function goPage(page) {
-		location.href = "bulletinListPaging.do?page=" + page;
 	}
 </script>
 </head>
 <body>
 	<div align="center">
-	<h3>자유게시판 (Paging)</h3><br>
-	<form id="frm" action="bulletinSelect.do" method="post">
+	<h3>자유게시판</h3><br>
+	<form id="frm" action="bulletin.do" method="post">
 		<input type="hidden" id="id" name="id">
 	</form>
 		<div style="width: 80%">
@@ -78,15 +74,6 @@ tr:hover td{background-color: #ddd;}
 			</div>
 			<br>
 			<br>
-			<jsp:include page="../common/paging.jsp" flush="true">
-			    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
-			    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
-			    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
-			    <jsp:param name="pageNo" value="${paging.pageNo}" />
-			    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
-			    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
-			    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
-			</jsp:include>
 		</div>
 	</div>
 </body>
