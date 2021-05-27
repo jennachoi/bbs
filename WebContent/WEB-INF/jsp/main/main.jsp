@@ -29,7 +29,8 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss");
 }
 
 .d1 {
-	margin-left: 10px;
+	width: 80%;
+	align: center;
 }
 
 th {
@@ -53,13 +54,6 @@ th {
 	background-color: #f5f5f5;
 }
 
-a:hover {
-	text-decoration: none;
-}
-
-a:visited {
-	color: black;
-}
 </style>
 <script>
 	function formSubmit(id) {
@@ -71,6 +65,7 @@ a:visited {
 		frmn.submit();
 	}
 </script>
+<div align="center">
 <div class="d1">
 	<c:if test="${empty id }">
 		<h3 class="nav">👤 Guest님 환영합니다!</h3>
@@ -84,10 +79,9 @@ a:visited {
 		<h3 class="nav">🙍 ${vo.name }님 환영합니다!</h3>
 	</c:if>
 	<br>
-	<p align="left">
+	<p>
 		현재 시간 :
 		<%=sf.format(nowTime)%></p>
-	<br>
 	<div align="center">
 		<br>
 		<table width="80%">
@@ -142,6 +136,7 @@ a:visited {
 			</tr>
 		</table>
 	</div>
+</div>
 </div>
 
 

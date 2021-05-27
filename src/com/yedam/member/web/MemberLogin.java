@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import com.yedam.common.DBCommand;
 import com.yedam.member.serviceImpl.MemberServiceImpl;
 import com.yedam.member.vo.MemberVO;
+import com.yedam.product.service.ProductService;
+import com.yedam.product.serviceImpl.ProductServiceImpl;
 
 public class MemberLogin implements DBCommand {
 
@@ -34,7 +36,12 @@ public class MemberLogin implements DBCommand {
 			// 로그인 처리 -> memberLoginSuccess.jsp
 			session.setAttribute("id", rvo.getId());
 			session.setAttribute("vo", rvo);
-			path = "member/memberLoginSuccess.tiles";
+			
+			ProductService service2 = new ProductServiceImpl();
+			int rCnt = service2.getCountCart(id);
+			
+			session.setAttribute("cartCnt", rCnt);
+			path = "index.do";
 		}
 		return path;
 	}

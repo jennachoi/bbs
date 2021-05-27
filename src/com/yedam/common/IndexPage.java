@@ -1,19 +1,21 @@
-package com.yedam.member.web;
+package com.yedam.common;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.yedam.common.DBCommand;
+import com.yedam.product.serviceImpl.ProductServiceImpl;
 
-public class MemberLoginOut implements DBCommand {
+public class IndexPage implements DBCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-
+		
 		HttpSession session = request.getSession();
-		session.invalidate(); // 세션 삭제
+		String id = (String) session.getAttribute("id");
 
-		return "index.do";
+		request.setAttribute("id", id);
+		return "main/main.tiles";
 	}
+
 }
