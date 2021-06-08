@@ -25,7 +25,7 @@ public class FileUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		resp.setCharacterEncoding("UTF-8");
-		String path = "c:/tmp";
+		String path = "D:/git/ore/bootstrap/img/product";
 		ServletContext sc = this.getServletContext();
 		path = sc.getRealPath("upload");
 
